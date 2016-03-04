@@ -29,3 +29,7 @@ int pc_info_find(string info_line_get[1000][10],string project_info_of_pc[1000][
 int write_client_status(string info_line_get[1000][10],string project_info_of_pc[1000][10],int pc_status[1000],char project[30],int temp,int info_line_number,string path_file);
 
 void rewrite_info(int line_number,string info_line_get[1000][10],int info_line_number,string project,string project_info_of_pc);
+
+void create_new_client_info(string info_line_get[1000][10],int info_line_number);
+
+void refresh_pc_info(string localfile[100]);

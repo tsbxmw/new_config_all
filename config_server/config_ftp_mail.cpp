@@ -175,11 +175,16 @@ int config_ftp_mail(string localfile[100],string project,string path_file)
 	}
 	else 
 	{
-			
+		
+
+		refresh_pc_info(localfile);
+
 		info_file_copy_file(localfile);
 		info_line_number = info_file_read(localfile,info_line_get);
 		info_file_del_file(localfile);
 		system_info_display(info_line_get,info_line_number);
+
+		
 
 		if(system_info_deal(info_line_get,info_line_number,project,path_file))
 		{

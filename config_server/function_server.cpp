@@ -38,6 +38,20 @@ void server_delay_time(int time)
 }
 
 
+void refresh_pc_info(string localfile[100])
+{
+	fstream open_status;
+	int number = 18;
+	while(localfile[number].length() != 0 )
+	{
+		system(("dir /o /b .\\PROJECT\\"+localfile[number]+"\\pc_status > project_info.info").c_str());
+
+
+		open_status.open("PROJECT\\"+localfile[number]+"\\pc_status\\"+);
+	}
+}
+
+
 bool info_file_copy_file(string localfile[100])
 {
 
@@ -94,8 +108,33 @@ int info_file_read(string localfile[100],string info_line_get[1000][10])
 		info_line_number++;
 	}
 	info_file_open.close();
+
+	//create_new_client_info(info_line_get,info_line_number);
+
 	return info_line_number;
 }
+
+void create_new_client_info(string info_line_get[1000][10],int info_line_number)
+{
+	string project_name,ip_add,ip_info_status,write_client_info;
+	for(int i=0;i<info_line_number;i++)
+	{
+	
+	
+		ip_add = info_line_get[i][0];
+		project_name = info_line_get[i][1];
+		ip_info_status = info_line_get[i][3];
+		write_client_info = "PROJECT\\"+project_name+"\\pc_status\\"+project_name+ip_add+"_client_read.info";
+		system(("echo "+ip_info_status).c_str());
+
+		
+	}
+
+}
+
+
+
+
 //处理读取后的文件信息。
 int  system_info_deal(string info_line_get[1000][10],int info_line_number,string project,string path_file)
 {
@@ -107,6 +146,8 @@ int  system_info_deal(string info_line_get[1000][10],int info_line_number,string
 	for(int i=0;i<length;i++)
 	{
 		get_project_name[i]=project[i+8];
+		if(i==length)
+			get_project_name[i]='\0';
 	}
 	cout<<get_project_name<<endl;
 	cout<<project<<endl;
@@ -255,3 +296,4 @@ void rewrite_info(int line_number,string info_line_get[1000][10],int info_line_n
 		}
 	}
 }
+

@@ -196,9 +196,9 @@ void create_getconfig_cfg(string localfile[100],string project)
 	system(("@echo "+localfile[10]+">> getconfig.cfg").c_str());
 	system(("@echo cd "+localfile[13]+">> getconfig.cfg").c_str());
 	system(("@echo lcd "+project+"\\configfile_all >> getconfig.cfg").c_str());
-	system("@echo prompt off >> getconfig.cfg");
+	system(("@echo prompt off >> getconfig.cfg"));
 	system(("@echo mget "+localfile[14]+">> getconfig.cfg").c_str());
-	system("@echo bye>> getconfig.cfg");
+	system(("@echo bye>> getconfig.cfg"));
 }
 
 /*
