@@ -1,4 +1,4 @@
-
+        
 #include <iostream>
 #include <Windows.h>
 #include <fstream>
@@ -25,10 +25,10 @@ void refresh_configname()
 */
 char * removepath(char x[10000],int length)
 {
-	length=length+12;//È¥³ý path=ftp://10.63.220.2/transfer/  .length().
+	length=length+11;//È¥³ý path=ftp://10.63.220.2/transfer/  .length().
 	for(int i=0;i<3000;i++)
 	{
-		x[i]=x[i+length+1];
+		x[i]=x[i+length];
 		if(i==0)
 		{
 		}
@@ -164,11 +164,60 @@ void delay_time(int time)
 	}
 }
 
+void mkdir_project_onserver(string localfile[100])
+{
+	//\\192.168.0.101\project\P809A50\pc_status\P809A50_10.63.220.7_client_read.info
+
+	string mkdir_project = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15];
+	string mkdir_not_read = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\config_not_read";
+	string mkdir_read = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\config_read";
+	string mkdir_all = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\configfile_all";
+	string mkdir_not_test = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\config_not_test";
+	string mkdir_client_status = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\client_status";
+	string mkdir_server_status = "mkdir \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15]+"\\server_status";
+	string command = localfile[0] + localfile[1]+"config_ini.ini"+" \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15] +"\\" ;
+	cout <<mkdir_project <<endl;
+	cout <<mkdir_not_read <<endl;
+	cout <<mkdir_read <<endl;
+	cout <<mkdir_all <<endl;
+	cout <<mkdir_client_status <<endl;
+	cout <<mkdir_server_status <<endl;
+	cout <<command<<endl;
+
+	string project_is_only;
+	char temp[30];
+	fstream open_project_info;
+	bool isonly = true;
+	system(("dir /o /b \\\\" + localfile[16] + "\\PROJECT\\" +" > project_first.info").c_str());
+	open_project_info.open("project_first.info");
+	while(open_project_info.getline(temp,30,'\n'))
+	{
+		project_is_only = temp;
+		if(project_is_only == localfile[15])
+		{
+			isonly = false;
+			break;
+		}
+	}
+	if(isonly)
+	{
+		system(mkdir_project.c_str());
+		system(mkdir_not_read.c_str());
+		system(mkdir_read.c_str());
+		system(mkdir_all.c_str());
+		system(mkdir_not_test.c_str());
+		system(mkdir_client_status.c_str());
+		system(mkdir_server_status.c_str());
+		
+	}
+	system(command.c_str());
+
+}
 
 void get_pc_status_from_server(string localfile[100])
 {
-	//\\10.63.220.2\every_build\PROJECT\P809A50\pc_status\P809A50_10.63.220.7_client_read.info
-	string command = localfile[0] + localfile[1]+" \\\\" + localfile[16] + "\\every_build\\PROJECT\\" + localfile[15] +"\\pc_status\\" + localfile[15] +"_"+localfile[17]+"_client_read.info" + " .\\config_not_read\\";
+	//\\192.168.0.101\project\P809A50\pc_status\P809A50_10.63.220.7_client_read.info
+	string command = localfile[0] + localfile[1]+" \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15] +"\\server_status\\" + localfile[15] +"_"+localfile[17]+"_server_read.info" + " .\\config_not_read\\";
 	cout <<command<<endl;
 	system(command.c_str());
 }
@@ -176,7 +225,15 @@ void get_pc_status_from_server(string localfile[100])
 void del_pc_status_on_server(string localfile[100])
 {
 	//\\10.63.220.2\every_build\PROJECT\P809A50\pc_status\P809A50_10.63.220.7_client_read.info
-	string command = localfile[12]+" \\\\" + localfile[16] + "\\every_build\\PROJECT\\" + localfile[15] +"\\pc_status\\" + localfile[15] +"_"+localfile[17]+"_client_read.info" + " .\\config_not_read\\";
+	string command = "echo BUSY > \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15] +"\\client_status\\" + localfile[15] +"_"+localfile[17]+"_client_read.info";
+	cout <<command<<endl;
+	system(command.c_str());
+}
+
+void set_server_status_null(string localfile[100])
+{
+	//\\10.63.220.2\every_build\PROJECT\P809A50\pc_status\P809A50_10.63.220.7_client_read.info
+	string command = "echo NULL> \\\\" + localfile[16] + "\\PROJECT\\" + localfile[15] +"\\client_status\\" + localfile[15] +"_"+localfile[17]+"_client_read.info";
 	cout <<command<<endl;
 	system(command.c_str());
 }
@@ -187,10 +244,22 @@ void make_new_info(string lcoalfile[100])
 	//system();
 }
 
-bool read_server_status()
+bool read_server_status(string localfile[100])
 {
-
-	return true;
+	string info_ip;
+	fstream open_local_status;
+	char local_status[100];
+	open_local_status.open(".\\config_not_read\\" +localfile[15] +"_"+localfile[17]+"_server_read.info");
+	open_local_status.getline(local_status,100,'\n');
+	info_ip = local_status;
+	open_local_status.close();
+	cout<<"<-- iam in the read server status ! -->"<<endl;
+	cout<<"<-- info : "<<info_ip<<"-->"<<endl;
+	local_status[4]='\0';
+	if( !strcmp(local_status,"NULL"))
+		return true;
+	else 
+		return false;
 }
 
 
