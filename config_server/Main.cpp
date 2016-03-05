@@ -36,6 +36,7 @@ int  main()
 	localfile[15]="infofile.info";
 	localfile[16]="infofile_open.info";
 	localfile[17]="-";
+
 	open_project_config_ini(localfile);
 	while(1)
 	{

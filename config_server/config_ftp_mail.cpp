@@ -38,7 +38,7 @@ int config_ftp_mail(string localfile[100],string project,string path_file)
 		   PATH;						//to save the path string int the config file
 	string path_file_test;
 
-	string info_line_get[1000][10];
+	string info_line_get[1000][10],info_line_get_after[1000][10];
 	int info_line_number = 0;
 
 	fstream config_all,					//input or output file to open the configfile to read the internal
@@ -177,17 +177,31 @@ int config_ftp_mail(string localfile[100],string project,string path_file)
 	{
 		
 
+		cout<< "<-- debug : before to display -->"<<endl;
+		info_file_copy_file(localfile);
+		int info_line_number_after = info_file_read(localfile,info_line_get_after);
+		info_file_del_file(localfile);
+		system_info_display(info_line_get_after,info_line_number_after);
+
+
 		refresh_pc_info(localfile);
 
 		info_file_copy_file(localfile);
 		info_line_number = info_file_read(localfile,info_line_get);
 		info_file_del_file(localfile);
 		system_info_display(info_line_get,info_line_number);
+	
 
-		
 
 		if(system_info_deal(info_line_get,info_line_number,project,path_file))
 		{
+
+			cout<< "<-- debug : after to display -->"<<endl;
+			info_file_copy_file(localfile);
+		    info_line_number_after = info_file_read(localfile,info_line_get_after);
+			info_file_del_file(localfile);
+			system_info_display(info_line_get_after,info_line_number_after);
+		
 
 			server_delay_time(10);
 

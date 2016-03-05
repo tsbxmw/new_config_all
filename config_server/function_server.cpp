@@ -40,14 +40,38 @@ void server_delay_time(int time)
 
 void refresh_pc_info(string localfile[100])
 {
-	fstream open_status;
-	int number = 18;
+	cout<<"<-- debug: iam in refresh_pc_info function -->"<<endl;
+	fstream open_status,open_project_info;
+	char status_info[100],project_info[100];
+	string pc_status_file,ip_status_info,command[2];
+	int number = 18,temp = 0;
 	while(localfile[number].length() != 0 )
 	{
-		system(("dir /o /b .\\PROJECT\\"+localfile[number]+"\\pc_status > project_info.info").c_str());
-
-
-		open_status.open("PROJECT\\"+localfile[number]+"\\pc_status\\"+);
+		system(("dir /o /b .\\PROJECT\\"+localfile[number]+"\\pc_status > ip_status.info").c_str());
+		cout<<"<-- debug: refresh the file -->"<<endl;
+		open_project_info.open("ip_status.info");
+		while(open_project_info.getline(project_info,100,'\n'))
+		{
+			
+			pc_status_file = project_info;
+			open_status.open("PROJECT\\"+localfile[number]+"\\pc_status\\"+pc_status_file);
+			open_status.getline(status_info,100,'\n');
+			status_info[4] = '\0';
+			ip_status_info = status_info;
+			command[0] = strtok(project_info,"_"); //project_name
+			command[1] = strtok(NULL,"_"); //ip_add
+				//cout<<info_line_get[info_line_number][i]<<endl;
+			if(temp == 0 )
+				system(("echo "+command[1]+"-"+command[0]+"-12345678-"+ip_status_info+"-BUSY > infofile.info").c_str());
+			else
+				system(("echo "+command[1]+"-"+command[0]+"-12345678-"+ip_status_info+"-BUSY >> infofile.info").c_str());
+			temp++;
+			cout<<"<-- debug: echo "+command[1]+"-"+command[0]+"-12345678-"+ip_status_info+"-BUSY >> infofile.info"<<endl;
+			open_status.close();
+		}
+		open_project_info.close();
+		number++;
+		
 	}
 }
 
@@ -146,8 +170,8 @@ int  system_info_deal(string info_line_get[1000][10],int info_line_number,string
 	for(int i=0;i<length;i++)
 	{
 		get_project_name[i]=project[i+8];
-		if(i==length)
-			get_project_name[i]='\0';
+		if(i==(length-1))
+			get_project_name[i+1]='\0';
 	}
 	cout<<get_project_name<<endl;
 	cout<<project<<endl;
@@ -238,13 +262,13 @@ int write_client_status(string info_line_get[1000][10],string project_info_of_pc
 			if(xdd==0)
 			{
 				system(("echo NULL > PROJECT\\"+project+"\\pc_status\\"+project+"_"+project_info_of_pc[i][0]+"_client_read.info").c_str());
-				cout<< "<-- create the "+project+"_"+project_info_of_pc[i][0]+"_client_read.info"<<endl;
+				cout<< "<-- create the "+project+"_"+project_info_of_pc[i][0]+"_client_read.info -->"<<endl;
 				path_file = "PROJECT\\"+project+"\\pc_status\\"+project+"_"+project_info_of_pc[i][0]+"_client_read.info";
 				cout << "<-- debug : file path is : " << path_file <<" -->"<<endl;
 				path_test = path_file;
 				rewrite_info(i,info_line_get,info_line_number,project,project_info_of_pc[i][0]);
 				xdd++;
-				system_info_display(info_line_get,info_line_number);
+				
 				return 1;
 				break;
 			}
@@ -260,7 +284,7 @@ void rewrite_info(int line_number,string info_line_get[1000][10],int info_line_n
 	for(int i=0;i<info_line_number;i++)
 	{
 
-		cout<<"<-- debug : i am in rewrite_info to write ! -->"<<endl;
+		cout<<"<-- debug : i am in rewrite_info to write the info file  ! -->"<<endl;
 		if(i==0){
 			if(project_info_of_pc == info_line_get[i][0])
 			{
