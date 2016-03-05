@@ -2,6 +2,7 @@
 #include "server.h"
 
 string path_test;
+string command_to_create;
 
 /*
 	localfile[0]="echo Y | ";
@@ -47,14 +48,14 @@ void refresh_pc_info(string localfile[100])
 	int number = 18,temp = 0;
 	while(localfile[number].length() != 0 )
 	{
-		system(("dir /o /b .\\PROJECT\\"+localfile[number]+"\\pc_status > ip_status.info").c_str());
+		system(("dir /o /b .\\PROJECT\\"+localfile[number]+"\\client_status > ip_status.info").c_str());
 		cout<<"<-- debug: refresh the file -->"<<endl;
 		open_project_info.open("ip_status.info");
 		while(open_project_info.getline(project_info,100,'\n'))
 		{
 			
 			pc_status_file = project_info;
-			open_status.open("PROJECT\\"+localfile[number]+"\\pc_status\\"+pc_status_file);
+			open_status.open("PROJECT\\"+localfile[number]+"\\client_status\\"+pc_status_file);
 			open_status.getline(status_info,100,'\n');
 			status_info[4] = '\0';
 			ip_status_info = status_info;
@@ -148,7 +149,7 @@ void create_new_client_info(string info_line_get[1000][10],int info_line_number)
 		ip_add = info_line_get[i][0];
 		project_name = info_line_get[i][1];
 		ip_info_status = info_line_get[i][3];
-		write_client_info = "PROJECT\\"+project_name+"\\pc_status\\"+project_name+ip_add+"_client_read.info";
+		write_client_info = "PROJECT\\"+project_name+"\\client_status\\"+project_name+ip_add+"_client_read.info";
 		system(("echo "+ip_info_status).c_str());
 
 		
@@ -205,10 +206,12 @@ int  pc_info_find(string info_line_get[1000][10],string project_info_of_pc[1000]
 	int temp = 0;
 	for(int i=0;i<info_line_pc_number;i++)
 	{
+		temp = 0;
 		for(int j=0;j<info_line_number;j++)
 		{
 			if(info_line_get[j][0]==project_info_of_pc[i][0])
 			{
+				cout << "<-- debug :"<< info_line_get[j][3] <<"-->"<<endl;
 				if(info_line_get[j][3]=="NULL")
 				{
 					pc_info[temp] = 0;
@@ -261,9 +264,10 @@ int write_client_status(string info_line_get[1000][10],string project_info_of_pc
 			//string commadn = "echo "+project;
 			if(xdd==0)
 			{
-				system(("echo NULL > PROJECT\\"+project+"\\pc_status\\"+project+"_"+project_info_of_pc[i][0]+"_client_read.info").c_str());
-				cout<< "<-- create the "+project+"_"+project_info_of_pc[i][0]+"_client_read.info -->"<<endl;
-				path_file = "PROJECT\\"+project+"\\pc_status\\"+project+"_"+project_info_of_pc[i][0]+"_client_read.info";
+				//system(("echo NULL > PROJECT\\"+project+"\\server_status\\"+project+"_"+project_info_of_pc[i][0]+"_server_read.info").c_str());
+				command_to_create = ("echo NULL > PROJECT\\"+project+"\\server_status\\"+project+"_"+project_info_of_pc[i][0]+"_server_read.info");
+				cout<< "<-- create the "+project+"_"+project_info_of_pc[i][0]+"_server_read.info -->"<<endl;
+				path_file = "PROJECT\\"+project+"\\server_status\\"+project+"_"+project_info_of_pc[i][0]+"_server_read.info";
 				cout << "<-- debug : file path is : " << path_file <<" -->"<<endl;
 				path_test = path_file;
 				rewrite_info(i,info_line_get,info_line_number,project,project_info_of_pc[i][0]);

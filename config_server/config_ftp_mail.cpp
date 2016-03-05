@@ -18,6 +18,7 @@ using namespace std;
 #include "server.h"
 
 extern string path_test;
+extern string command_to_create;
 
 int config_ftp_mail(string localfile[100],string project,string path_file)
 {
@@ -253,6 +254,7 @@ int config_ftp_mail(string localfile[100],string project,string path_file)
 					cout<<"<-- the path is : "<<PATH<<" -->"<<endl;
 					cout<<"<-- the pathfile is in : " << path_file<<"-->"<<endl;
 					cout<<"<-- the pathfile is in : " << path_test<<"-->"<<endl;
+					system(command_to_create.c_str());
 					system(("echo "+ PATH +" >> "+path_test).c_str());
 					
 

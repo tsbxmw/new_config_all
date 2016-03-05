@@ -42,11 +42,15 @@ char * removepath(char x[10000],int length);
 
 void make_new_info(string loaclfile[100]);
 
-bool read_server_status();
+bool read_server_status(string localfile[100]);
 
 
 void upload_status_toserver();
 
 void get_pc_status_from_server(string localfile[100]);
 
+void set_server_status_null(string localfile[100]);
+
 void del_pc_status_on_server(string localfile[100]);
+
+void mkdir_project_onserver(string localfile[100]);

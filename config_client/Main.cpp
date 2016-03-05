@@ -3,6 +3,7 @@
 int  main()
 {
 	string localfile[100];
+	int start_second;
 	
 	localfile[0]="echo Y | ";
 	localfile[1]="copy  ";//øΩ±¥√¸¡Ó
@@ -26,10 +27,12 @@ int  main()
 
 	while(1)	
 	{
-			config_ftp_mail(localfile);
-			delay_time(60);
+			start_second = config_ftp_mail(localfile);
+			if(start_second)
+				break;
+			delay_time(10);
 	}
-	
+	system("pause");
 	return 0;
 }
 

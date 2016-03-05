@@ -41,18 +41,24 @@ int config_ftp_mail(string localfile[100])
 			config_internal,
 			config_not_test;
 
+	bool ip_status_local;
+
 	
 	open_config_ini(localfile);			//open the config_ini ,to read the config
 
+	mkdir_project_onserver(localfile);
 
 	get_pc_status_from_server(localfile);
-	del_pc_status_on_server(localfile);
+
+	ip_status_local = read_server_status(localfile);
+
 
 	refresh_configname();
-
-	config_not_read.open("filename_not_read.txt");
-	if(config_not_read.getline(local_not_read,300,'\n'))//读取config_not_read name的最后1行，然后读此行对应的config文件。
-	{                                                                                                                                                                                                                                
+	if( ip_status_local)
+	{
+		config_not_read.open("filename_not_read.txt");
+		if(config_not_read.getline(local_not_read,300,'\n'))//读取config_not_read name的最后1行，然后读此行对应的config文件。
+		{                 
 				config_not_read.close();
 				refresh_configname();
 				temp=local_not_read;
@@ -64,47 +70,64 @@ int config_ftp_mail(string localfile[100])
 				//读完config后将其移入config_read文件夹
 				config_internal.open("config_read\\"+temp);//打开对应的config文件
 				config_internal.getline(local_internal,300,' ');
-				config_internal.getline(local_internal,300,' ');//读文件第一行
-				
-				system("echo copy_begin_time=%date:~0,10% %time% >..\\config.config");
 
-				PATH = removepath(local_internal,-12);//获得绝对路径PATH
-				//PATH = local_internal;
-				cout<<"<-- the path is : "<<PATH<<" -->"<<endl;
-
-
-				//下面语句用的是copy命令获取config文件到本地
-				//system((localfile[0]+localfile[1]+PATH+localfile[6]).c_str());
-				//从服务器上copy文件到本地,此处使用ftp
-				//system((localfile[12]+localfile[6]).c_str());
-				//↑ 删除本地之前的下载文件版本。
-				/*
-				system("cd ..\\Config_upload");
-				system("call upload.bat");
-				system("cd ..\\01VersionDown");
-				*/
-				string newpath="echo get "+PATH+" "+localfile[6]+">>autoftp.cfg";
-				cout << newpath <<endl;
-				system(("echo open "+localfile[8]+"> autoftp.cfg").c_str());
-				system(("echo "+localfile[9]+">> autoftp.cfg").c_str());
-				system(("echo "+localfile[10]+">> autoftp.cfg").c_str());
-				system((newpath).c_str());
-				system("echo bye>> autoftp.cfg");
-				system("ftp -s:autoftp.cfg");
-
-				system("echo copy_end_time=%date:~0,10% %time% >>..\\config.config");
-
-				while(1);
-				system("call SuccessEmail.bat");
-
-				//↑SuccessEmail.bat : 用来解压下载后的文件
+				if(config_internal.getline(local_internal,300,' '))//读文件第一
+				{
+					del_pc_status_on_server(localfile);
 			
-		}
-		else
-		{
-			cout<<"<-- Wrong config file ! -->"<<endl;
-		}
+					system("echo copy_begin_time=%date:~0,10% %time% >..\\config.config");
 
+					PATH = local_internal;//获得绝对路径PATH
+					//PATH = local_internal;
+					cout<<"<-- the path is : "<<PATH<<" -->"<<endl;
+
+
+					//下面语句用的是copy命令获取config文件到本地
+					//system((localfile[0]+localfile[1]+PATH+localfile[6]).c_str());
+					//从服务器上copy文件到本地,此处使用ftp
+					//system((localfile[12]+localfile[6]).c_str());
+					//↑ 删除本地之前的下载文件版本。
+					/*
+					system("cd ..\\Config_upload");
+					system("call upload.bat");
+					system("cd ..\\01VersionDown");
+					*/
+					string newpath="echo get "+PATH+" "+localfile[6]+">>autoftp.cfg";
+					cout << newpath <<endl;
+					system(("echo open "+localfile[8]+"> autoftp.cfg").c_str());
+					system(("echo "+localfile[9]+">> autoftp.cfg").c_str());
+					system(("echo "+localfile[10]+">> autoftp.cfg").c_str());
+					system((newpath).c_str());
+					system("echo bye>> autoftp.cfg");
+					system("ftp -s:autoftp.cfg");
+
+					system("echo copy_end_time=%date:~0,10% %time% >>..\\config.config");
+
+					system("call SuccessEmail.bat");
+					cout<<"<-- iam read the path and into the next step! -->"<<endl;
+					//↑SuccessEmail.bat : 用来解压下载后的文件
+					return 1;
+				}
+				else
+				{
+					set_server_status_null(localfile);
+					return 0;
+
+				}
+			}
+			else
+			{
+				set_server_status_null(localfile);
+				cout<<"<-- Wrong config file ! -->"<<endl;
+				return 0;
+			}
+	}
+	else
+	{
+		set_server_status_null(localfile);
+		cout<< "<-- the pc is busy ,please wait for null -->" <<endl;
 		return 0;
+	}
+	
 }
 

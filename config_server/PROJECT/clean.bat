@@ -1,18 +1,4 @@
-del /Q  P809A50\config_not_read\*
-
-del /Q P809A50\config_read\*
-
-del /Q P809V50\config_not_read\*
-
-del /Q P809V50\config_read\*
-
-del /Q P809T70\config_not_read\*
-
-del /Q P809T70\config_read\*
-
-del /Q P892F52\config_not_read\*
-
-del /Q P892F52\config_read\*
-
-
-
+echo Y |rmdir /s  P809A50
+echo Y |rmdir /s  P892F52
+echo Y |rmdir /s  P809V50
+pause
