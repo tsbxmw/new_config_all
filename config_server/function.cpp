@@ -111,7 +111,7 @@ void update_project_ini()
 	system("dir /ad /b /o PROJECT > PROJECT\\project_info.ini");
 }
 
-void open_project_config_ini(string localfile[100]) 
+ int open_project_config_ini(string localfile[100]) 
 {
 	update_project_ini();
 	char local_ini[1000];
@@ -125,45 +125,49 @@ void open_project_config_ini(string localfile[100])
 		cout<<"project_ini opened "<<endl;
 		if(!(local_ini[0]==':' && local_ini[1]==':' &&local_ini[2]=='-'))
 		{
-			switch(ini_line){
-			case 0:
-				localfile[18]=local_ini;//本地版本存放路径及名称
-				break;
-			case 1:
-				localfile[19]=local_ini;//ftp ip address
-				break;
-			case 2:
-				localfile[20]=local_ini;//user_name
-				break;
-			case 3:
-				localfile[21]=local_ini;//password
-				break;
-			case 4:
-				localfile[22]=local_ini;//config_upload_path
-				break;
-			case 5:
-				localfile[23]=local_ini;//ftp servers config_files path
-				break;
-			case 6:
-				localfile[24]=local_ini;//config file pre name
-				break;
-			case 7:
-				localfile[25]=local_ini;//config file pre name
-				break;
-			case 8:
-				localfile[26]=local_ini;//config file pre name
-				break;
-			case 9:
-				localfile[27]=local_ini;//config file pre name
-				break;
-			default:
-				break;
-			}
+
+			localfile[18 + ini_line] = local_ini;
+			//switch(ini_line){
+			//case 0:
+			//	localfile[18]=local_ini;//本地版本存放路径及名称
+			//	break;
+			//case 1:
+			//	localfile[19]=local_ini;//ftp ip address
+			//	break;
+			//case 2:
+			//	localfile[20]=local_ini;//user_name
+			//	break;
+			//case 3:
+			//	localfile[21]=local_ini;//password
+			//	break;
+			//case 4:
+			//	localfile[22]=local_ini;//config_upload_path
+			//	break;
+			//case 5:
+			//	localfile[23]=local_ini;//ftp servers config_files path
+			//	break;
+			//case 6:
+			//	localfile[24]=local_ini;//config file pre name
+			//	break;
+			//case 7:
+			//	localfile[25]=local_ini;//config file pre name
+			//	break;
+			//case 8:
+			//	localfile[26]=local_ini;//config file pre name
+			//	break;
+			//case 9:
+			//	localfile[27]=local_ini;//config file pre name
+			//	break;
+			//default:
+			//	break;
+			//}
 
 			ini_line++;
 		}
 	}
 	config_ini.close();
+
+	return ini_line - 1;
 
 	//cout<<localfile[10]<<endl;
 

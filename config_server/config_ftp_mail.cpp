@@ -242,7 +242,7 @@ int config_ftp_mail(string localfile[100],string project,string path_file)
 					length = localfile[8].length();
 					cout<<"length="<<length<<endl;
 					system((localfile[0]+localfile[5]+localfile[3]+temp+localfile[4]+temp).c_str());
-					system((localfile[0]+localfile[1]+localfile[4]+temp+" "+localfile[11]+temp).c_str());
+					//system((localfile[0]+localfile[1]+localfile[4]+temp+" "+localfile[11]+temp).c_str());
 					//读完config后将其移入config_read文件夹
 
 					config_internal.open(project+"\\config_read\\"+temp);//打开对应的config文件

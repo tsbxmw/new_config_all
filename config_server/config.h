@@ -49,5 +49,5 @@ void delay_time(int time);
 char * removepath(char x[10000],int length);								  
 //see the resources.
 
-void open_project_config_ini(string localfile[100]);
+int open_project_config_ini(string localfile[100]);
 

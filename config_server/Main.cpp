@@ -16,6 +16,7 @@ int  main()
 	string temp = "PROJECT\\";
 	string path_file;
 	int pro_num=18;
+	int control = 0;
 	
 
 	localfile[0]="echo Y | ";
@@ -42,7 +43,8 @@ int  main()
 	{
 		open_project_config_ini(localfile);
 		pro_num=18;
-		while(localfile[pro_num].length() != 0){//if has the project name
+		control = open_project_config_ini(localfile);
+		while(control >= 0){//if has the project name
 			cout<<"<-- This is the "+localfile[pro_num]+" Project !"<<endl;
 			project = temp + localfile[pro_num];
 			localfile[2]=" "+project+"\\configfile_all\\";//all_config dir
@@ -51,9 +53,11 @@ int  main()
 			localfile[7]=" "+project+"\\config_not_test\\";//Î´²âÊÔµÄ°æ±¾Â·¾¶
 			config_ftp_mail(localfile,project,path_file);
 			pro_num ++;
+			control--;
 			delay_time(10);
 		}
 		
+
 		cout<<"<-- in this 100s , you can add the new project in the PROJECT dir -->"<<endl;
 		delay_time(DELAY_TIME);
 		

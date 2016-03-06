@@ -1,28 +1,23 @@
-﻿生成启动时间为 2016/3/5 星期六 16:41:32。
+﻿生成启动时间为 2016/3/8 星期二 20:03:03。
      1>项目“F:\DATE\VS2012\new_project_mw\new_config_all\config_server\config_server.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         F:\Program Files (x86)\VisualStudio2012\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MTd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt config_ftp_mail.cpp function_server.cpp
-         config_ftp_mail.cpp
-         function_server.cpp
-     1>function_server.cpp(62): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 F:\Program Files (x86)\VisualStudio2012\VC\include\string.h(200) : 参见“strtok”的声明
-     1>function_server.cpp(63): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 F:\Program Files (x86)\VisualStudio2012\VC\include\string.h(200) : 参见“strtok”的声明
-     1>function_server.cpp(127): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 F:\Program Files (x86)\VisualStudio2012\VC\include\string.h(200) : 参见“strtok”的声明
-     1>function_server.cpp(130): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 F:\Program Files (x86)\VisualStudio2012\VC\include\string.h(200) : 参见“strtok”的声明
+         F:\Program Files (x86)\VS2015\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MTd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp function.cpp
+         Main.cpp
+         function.cpp
        Link:
-         F:\Program Files (x86)\VisualStudio2012\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.lib" /MACHINE:X86 /SAFESEH Release\config_ftp_mail.obj
+         F:\Program Files (x86)\VS2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.lib" /MACHINE:X86 /SAFESEH Release\config_ftp_mail.obj
          Release\config_server.obj
          Release\function.obj
          Release\function_server.obj
          Release\Main.obj
          正在生成代码
+         1 of 549 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+           0 functions were new in current compilation
+           3 functions had inline decision re-evaluated but remain unchanged
          已完成代码的生成
          config_server.vcxproj -> F:\DATE\VS2012\new_project_mw\new_config_all\Release\config_server.exe
      1>已完成生成项目“F:\DATE\VS2012\new_project_mw\new_config_all\config_server\config_server.vcxproj”(Build 个目标)的操作。
 
-生成成功。
+已成功生成。
 
-已用时间 00:00:02.62
+已用时间 00:00:03.92
